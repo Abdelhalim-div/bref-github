@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+
+    <link rel="stylesheet" href="stylegithup.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #F0F4F7;
+}
+.head{
+    background-color: #000000;
+    color: white;
+    padding: 18px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.kalin{
+    display: none;
+    position: absolute;
+    right: 30px;
+    top: 0;
+    color: white;
+    padding: 18px;
+    font-weight: bold;
+    font-size: 20px;
+
+}
+.paroles{
+    overflow: hidden;
+   
+    display: flex;
+     justify-content: center;
+    align-items: center; 
+    width: 70%;
+    height: 200px;
+    
+   
+    
+    margin: auto;
+}
+.inptS{
+    display: inline-block;
+    
+    overflow: hidden;
+    box-shadow: 0px 1px 3px 0px black,-1px -3px 2px 1px white;
+ 
+    border-radius: 10px;
+
+
+}
+.inptS input{
+    background-color:#F0F4F7 ;
+    width: 300px;
+    
+}
+
+.inptS input,button{
+   
+    border: none;
+    outline: none;
+    
+ padding: 15px;
+ 
+}
+.inptS button{
+    cursor: pointer;
+    background-color: #000000;
+    color: white;
+}
+.cardsContainer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
+    
+    width: 70%;
+    height: 300px;
+    margin: auto;
+  
+}
+.card{
+    margin: 10px;
+   
+    overflow: hidden;
+    box-shadow: 0px 1px 3px 0px black,-1px -3px 2px 1px white;
+   border-radius: 10px;
+    width: 200px;
+    height: 300px;
+}
+.card img{
+    width: 100%;
+    height: 200px;
+}
+.card span{
+    font-size: 25px;
+    display: block;
+    text-align: center;
+}
+.carde .user{
+    font-size: 25px;
+    display: block;
+    text-align: center;
+}
+.card img:hover{
+    background-color: RGBA(105,95,66,1);
+    opacity: 0.5;
+    transition: 1s;
+    
+}
+
+.modal{
+    transition: 0.5;
+    color: black;
+  
+    display: none;
+   box-shadow:  0px 1px 3px 0px black,-1px -3px 2px 1px white;
+    background-color: #F0F4F7 ;
+    
+    width: 300px;
+    height: 400px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+border-radius: 10px;
+overflow: hidden;}
+.modal img{
+   
+  object-fit: cover;
+    width: 100%;
+    height: 70%;
+    overflow: hidden;
+}
+.modal.userName{
+    display: block;
+    text-align: center;
+
+}
+.close{
+    cursor: pointer;
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    font-size: 50px;
+    color: #ccc;
+}
+.modal .repro{
+    display: flex;
+    justify-content: space-around;
+
+}
+@keyframes zomming{
+    0%{
+        transform: scale(0);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+.profile{
+    background-color: black;
+    color: white;
+    position: relative;
+    top: 50px;
+    display: block;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    overflow: hidden;
+}
+.profile:hover{
+    opacity: 0.5;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <header class="head"><span>Github.</span></header>
+            <header class="kalin">user</header>
+        </div>
+        <div class="paroles">
+            <div class="inptS">
+                <input type="text" placeholder="Username..." id="inptV"><button id="btnUsers"><i
+                        class="fas fa-search"></i></button>
+            </div>
+        </div>
+        <div class="cardsContainer">
+            <!-- card image -->
+
+        </div>
+        <span style="display: none;" id="closer" class="close">&#x2716; </span>
+        <div class="modalCon">
+        <div class="modal" id="">
+            
+            
+            <img id="img" src="404-not-found-error-.jpg" alt="">
+            <span class="userName" id="user">userName</span>
+            <div class="repro">
+                <span class="follow" id="followers">followers:</span>
+                <span class="repos" id="reposi">repos:</span>
+               
+            </div>
+            <a href="#" target="_blank" class="profile">profile</a>
+        </div>
+    </div>
+    </div>
+ </div>
+    </div>
+    
+    <script >
+
+var agham= new XMLHttpRequest();
+
+agham.open("GET","https://api.github.com/users","true");
+
+agham.send();
+
+agham.onload=function(){
+    if(this.status===200){
+    
+   var data =JSON.parse(this.responseText);
+   
+  
+   for(var i=4;i<8;i++){
+    var cardsContainer=document.getElementsByClassName("cardsContainer")[0];
+var myDiv=document.createElement("div");
+myDiv.className+="card";
+cardsContainer.appendChild(myDiv);
+var myImage=document.createElement("img");
+myImage.setAttribute("src",data[i].avatar_url);
+myDiv.appendChild(myImage);
+var mySpan=document.createElement("span");
+mySpan.textContent=data[i].login;
+myDiv.appendChild(mySpan);
+
+}
+    
+    }
+    
+}
+
+var modal=document.querySelector(".modal");
+
+
+var close=document.getElementById("closer");
+var modalCon=document.querySelector(".modalCon");
+var btnUsers=document.getElementById("btnUsers");
+var di="https://api.github.com/users/";
+btnUsers.onclick=function(){
+    var img=document.getElementById("img");
+    
+    var userName=document.getElementById("user");
+var follow=document.getElementById("followers");
+var repos=document.getElementById("reposi");
+
+modal.style.display="block";
+    close.style.display="block";
+
+    var iptvl=document.querySelector("#inptV").value;
+    fetch("https://api.github.com/users/"+iptvl)
+    .then((Response)=>{
+        return Response.json();
+    })
+    .then((data)=>{
+       if(iptvl===data.login){
+        userName.textContent=data.login;
+        follow.textContent+=data.following;
+        repos.textContent+=data.public_repos;
+        img.src=data.avatar_url;
+        var profile=document.querySelector(".profile");
+         
+       }
+       else{
+           alert("Does not exist");
+       }
+      
+       profile.addEventListener("click",function(e){
+           e.preventDefault;
+           profile.href=data.html_url;
+
+       })
+
+
+       
+    })
+
+};
+
+close.onclick=function(){
+    modal.style.display="none";
+    close.style.display="none";
+};
+var profile=document.querySelector(".usernames");
+var users=localStorage.getItem("email");
+if(localStorage.getItem("email")){
+    profile.style.display="block";
+    profile.textContent=users;
+
+    
+}
+
+
+    </script>
+</body>
+
+</html>
